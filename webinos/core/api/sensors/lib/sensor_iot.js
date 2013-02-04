@@ -39,7 +39,7 @@ var RPCWebinosService = require("webinos-jsonrpc2").RPCWebinosService;
         var name;
         var description;
         
-        console.log("Called sensor ctor with params " + JSON.stringify(data));
+//        console.log("Called sensor ctor with params " + JSON.stringify(data));
 
         if(data.type) {
             type = data.type;
@@ -154,8 +154,11 @@ var RPCWebinosService = require("webinos-jsonrpc2").RPCWebinosService;
         */
         this.configureSensor = function(params, successCB, errorCB) {
             console.log("Configuring sensor with params : "+JSON.stringify(params));
+
+            // FIX PER'S PR
             driverInterface.sendCommand('cfg', this.elementId, params,
-                    new CmdErrorHandler(errorCB).errorCB);
+                    //new CmdErrorHandler(errorCB).errorCB, successCB);
+                    errorCB, successCB);
         };
         
         this.addEventListener = function (eventType, successCB, errorCB, objectRef) {
